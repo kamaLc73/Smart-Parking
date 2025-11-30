@@ -1,0 +1,7 @@
+.vscode/
+
+.pio/
+
+dashboard/node_modules/
+
+cmd

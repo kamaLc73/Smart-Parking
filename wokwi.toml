@@ -1,0 +1,27 @@
+[wokwi]
+# Version of the wokwi.toml schema
+version = 1
+
+# Use the firmware produced by PlatformIO/ESP32 build
+# Use forward slashes for cross-platform compatibility
+firmware = ".pio/build/esp32dev/firmware.bin"
+elf = ".pio/build/esp32dev/firmware.elf"
+
+# Optional: start RFC2217 server for serial forwarding (choose a free port)
+rfc2217ServerPort = 4000
+
+# Optional: example of forwarding a local port to the ESP32 network stack
+# Useful if your firmware runs a webserver and you want to access it locally
+# [[net.forward]]
+# from = "localhost:8180"
+# to = "target:80"
+
+# Forward local Mosquitto MQTT broker to the simulated ESP32 (useful for Wokwi only):
+[[net.forward]]
+from = "localhost:1883"
+to = "target:1883"
+
+# If you use custom chips add them (example below)
+# [[chip]]
+# name = 'inverter'
+# binary = 'chips/inverter.chip.wasm'    

@@ -1,0 +1,171 @@
+{
+  "version": 1,
+  "author": "Smart Parking System",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-esp32-devkit-v1", "id": "esp32", "top": 100, "left": 0, "attrs": {} },
+    { "type": "wokwi-hc-sr04", "id": "sensor1", "top": -96, "left": 288, "attrs": {} },
+    {
+      "type": "wokwi-led",
+      "id": "led1_green",
+      "top": -96,
+      "left": 480,
+      "attrs": { "color": "green" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1_green",
+      "top": -67,
+      "left": 518,
+      "rotate": 90,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led1_red",
+      "top": -96,
+      "left": 576,
+      "attrs": { "color": "red" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1_red",
+      "top": -67,
+      "left": 614,
+      "rotate": 90,
+      "attrs": { "value": "220" }
+    },
+    { "type": "wokwi-hc-sr04", "id": "sensor2", "top": 97.5, "left": 283.9, "attrs": {} },
+    {
+      "type": "wokwi-led",
+      "id": "led2_green",
+      "top": 96,
+      "left": 480,
+      "attrs": { "color": "green" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r2_green",
+      "top": 125,
+      "left": 518,
+      "rotate": 90,
+      "attrs": { "value": "220" }
+    },
+    { "type": "wokwi-led", "id": "led2_red", "top": 96, "left": 576, "attrs": { "color": "red" } },
+    {
+      "type": "wokwi-resistor",
+      "id": "r2_red",
+      "top": 125,
+      "left": 614,
+      "rotate": 90,
+      "attrs": { "value": "220" }
+    },
+    { "type": "wokwi-hc-sr04", "id": "sensor3", "top": 288, "left": 288, "attrs": {} },
+    {
+      "type": "wokwi-led",
+      "id": "led3_green",
+      "top": 288,
+      "left": 480,
+      "attrs": { "color": "green" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r3_green",
+      "top": 317,
+      "left": 518,
+      "rotate": 90,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led3_red",
+      "top": 288,
+      "left": 576,
+      "attrs": { "color": "red" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r3_red",
+      "top": 317,
+      "left": 614,
+      "rotate": 90,
+      "attrs": { "value": "220" }
+    },
+    { "type": "wokwi-hc-sr04", "id": "sensor4", "top": 480, "left": 288, "attrs": {} },
+    {
+      "type": "wokwi-led",
+      "id": "led4_green",
+      "top": 480,
+      "left": 480,
+      "attrs": { "color": "green" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r4_green",
+      "top": 509,
+      "left": 518,
+      "rotate": 90,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led4_red",
+      "top": 480,
+      "left": 576,
+      "attrs": { "color": "red" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r4_red",
+      "top": 509,
+      "left": 614,
+      "rotate": 90,
+      "attrs": { "value": "220" }
+    }
+  ],
+  "connections": [
+    [ "esp32:TX0", "$serialMonitor:RX", "", [] ],
+    [ "esp32:RX0", "$serialMonitor:TX", "", [] ],
+    [ "sensor1:VCC", "esp32:VIN", "red", [ "v0" ] ],
+    [ "sensor1:TRIG", "esp32:D5", "blue", [ "v0" ] ],
+    [ "sensor1:ECHO", "esp32:D18", "green", [ "v0" ] ],
+    [ "sensor1:GND", "esp32:GND.1", "black", [ "v0" ] ],
+    [ "led1_green:A", "esp32:D19", "green", [ "v0" ] ],
+    [ "led1_green:C", "r1_green:1", "black", [ "v0" ] ],
+    [ "r1_green:2", "esp32:GND.1", "black", [ "v0" ] ],
+    [ "led1_red:A", "esp32:D4", "red", [ "v0" ] ],
+    [ "led1_red:C", "r1_red:1", "black", [ "v0" ] ],
+    [ "r1_red:2", "esp32:GND.1", "black", [ "v0" ] ],
+    [ "sensor2:VCC", "esp32:VIN", "red", [ "v0" ] ],
+    [ "sensor2:TRIG", "esp32:D21", "blue", [ "v0" ] ],
+    [ "sensor2:ECHO", "esp32:D22", "green", [ "v0" ] ],
+    [ "sensor2:GND", "esp32:GND.2", "black", [ "v0" ] ],
+    [ "led2_green:A", "esp32:D23", "green", [ "v0" ] ],
+    [ "led2_green:C", "r2_green:1", "black", [ "v0" ] ],
+    [ "r2_green:2", "esp32:GND.2", "black", [ "v0" ] ],
+    [ "led2_red:A", "esp32:D2", "red", [ "v0" ] ],
+    [ "led2_red:C", "r2_red:1", "black", [ "v0" ] ],
+    [ "r2_red:2", "esp32:GND.2", "black", [ "v0" ] ],
+    [ "sensor3:VCC", "esp32:VIN", "red", [ "v0" ] ],
+    [ "sensor3:TRIG", "esp32:D32", "blue", [ "v0" ] ],
+    [ "sensor3:ECHO", "esp32:D33", "green", [ "v0" ] ],
+    [ "sensor3:GND", "esp32:GND.2", "black", [ "v0" ] ],
+    [ "led3_green:A", "esp32:D25", "green", [ "v0" ] ],
+    [ "led3_green:C", "r3_green:1", "black", [ "v0" ] ],
+    [ "r3_green:2", "esp32:GND.2", "black", [ "v0" ] ],
+    [ "led3_red:A", "esp32:D15", "red", [ "v0" ] ],
+    [ "led3_red:C", "r3_red:1", "black", [ "v0" ] ],
+    [ "r3_red:2", "esp32:GND.2", "black", [ "v0" ] ],
+    [ "sensor4:VCC", "esp32:VIN", "red", [ "v0" ] ],
+    [ "sensor4:TRIG", "esp32:D26", "blue", [ "v0" ] ],
+    [ "sensor4:ECHO", "esp32:D27", "green", [ "v0" ] ],
+    [ "sensor4:GND", "esp32:GND.2", "black", [ "v0" ] ],
+    [ "led4_green:A", "esp32:D14", "green", [ "v0" ] ],
+    [ "led4_green:C", "r4_green:1", "black", [ "v0" ] ],
+    [ "r4_green:2", "esp32:GND.2", "black", [ "v0" ] ],
+    [ "led4_red:A", "esp32:D12", "red", [ "v0" ] ],
+    [ "led4_red:C", "r4_red:1", "black", [ "v0" ] ],
+    [ "r4_red:2", "esp32:GND.2", "black", [ "v0" ] ]
+  ],
+  "dependencies": {}
+}
