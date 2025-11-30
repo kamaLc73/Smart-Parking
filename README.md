@@ -1,6 +1,21 @@
 # Smart Parking System (ESP32)
 
-A simple microcontroller-based smart parking system built for the ESP32 using ultrasonic sensors and LEDs to display occupancy for multiple parking spots. It also publishes status via MQTT (HiveMQ Cloud in the example).
+A simple microcontroller-based smart parking system built for the ESP32 Wokwi using ultrasonic sensors and LEDs to display occupancy for multiple parking spots. It also publishes status via MQTT (HiveMQ Cloud in the example).
+
+---
+
+## Table of Contents
+
+- [Features](#features)
+- [Hardware](#hardware)
+- [Wiring (pinout)](#wiring-pinout)
+- [Configuration](#configuration)
+- [Build &amp; Upload (PlatformIO)](#build--upload-platformio)
+- [Web Dashboard (React)](#web-dashboard-react)
+- [Simulation (Wokwi)](#simulation-wokwi)
+- [Troubleshooting](#troubleshooting)
+- [Contributing](#contributing)
+- [License](#license)
 
 ---
 
@@ -22,6 +37,19 @@ A simple microcontroller-based smart parking system built for the ESP32 using ul
 - Jumper wires and breadboard
 
 Wiring is defined in `src/main.cpp` as TRIG/ECHO & LED pin definitions.
+
+---
+
+## Wiring (pinout)
+
+The pin mappings used in the firmware are listed below (defined in `src/main.cpp`):
+
+| Place | TRIG | ECHO | LED GREEN | LED RED |
+| ----- | ---- | ---- | --------- | ------- |
+| 1     | 5    | 18   | 19        | 4       |
+| 2     | 21   | 22   | 23        | 2       |
+| 3     | 32   | 33   | 25        | 15      |
+| 4     | 26   | 27   | 14        | 12      |
 
 ---
 
@@ -71,3 +99,86 @@ Status is published to the topic `smartparking/status` as JSON (see `src/main.cp
 
 - PlatformIO environment: `esp32dev` (`platform = espressif32`) in `platformio.ini`
 - PubSubClient (`knolleary/PubSubClient`)
+
+---
+
+## Web Dashboard (React)
+
+There is a sample React dashboard in the `dashboard/` folder that subscribes to the `smartparking/status` MQTT topic and displays parking places, statistics, and recent activity in real-time.
+
+Quick start (from root):
+
+```powershell
+cd dashboard
+npm install
+npm run dev
+```
+
+Open the URL printed by Vite (default: `http://localhost:5173/`).
+
+Configuration & Environment Variables:
+
+- Node.js version: For best compatibility with dev dependencies (e.g., `@vitejs/plugin-react`), use Node.js >= 20.19.0 (or >= 22.12.0). Check your Node version with `node -v`.
+- Instead of committing credentials directly into `src/ParkingDashboard.jsx`, use Vite environment variables. Create a `.env` file in `dashboard/` and add the public environment variables that start with `VITE_`, e.g.:
+
+```powershell
+cd dashboard
+copy NUL .env
+```
+
+Then add to `.env`:
+
+```env
+VITE_MQTT_BROKER=wss://your-broker:8884/mqtt
+VITE_MQTT_USERNAME=your_mqtt_user
+VITE_MQTT_PASSWORD=your_mqtt_password
+VITE_MQTT_TOPIC=smartparking/status
+```
+
+In `dashboard/src/ParkingDashboard.jsx`, you can read them like this:
+
+```js
+const MQTT_CONFIG = {
+  broker: import.meta.env.VITE_MQTT_BROKER,
+  username: import.meta.env.VITE_MQTT_USERNAME,
+  password: import.meta.env.VITE_MQTT_PASSWORD,
+  topic: import.meta.env.VITE_MQTT_TOPIC || 'smartparking/status',
+};
+```
+
+Build & Production:
+
+- Start dev server:
+
+```powershell
+cd dashboard
+npm run dev
+```
+
+- Build (production):
+
+```powershell
+cd dashboard
+npm run build
+```
+
+This generates a `dist/` folder which you can serve with any static server or deploy to a hosting provider.
+
+Notes:
+
+- The example uses the Paho MQTT client library (via CDN in `index.html`). To avoid relying on CDN in production, install an MQTT npm package (for example, `mqtt`) and import/initialize it from your React code.
+- Use environment variables and secure WebSocket endpoints, and keep credentials out of version control (add `.env` to `.gitignore`).
+
+---
+
+## Troubleshooting
+
+- npm install fails: try upgrading Node.js to the recommended version (≥ 20.19.0). Alternatively, adjust dependencies in `dashboard/package.json` to compatible versions.
+- Vite ESM/CJS errors: ensure `dashboard/package.json` has `"type": "module"` and `vite.config.js` uses ESM import/export.
+- No MQTT messages: verify the ESP32 publishes to `smartparking/status` and the dashboard is subscribed to the same broker and topic.
+
+---
+
+## Contributing
+
+- Bug reports and pull requests are welcome. Please include reproduction steps and any wiring or hardware changes.

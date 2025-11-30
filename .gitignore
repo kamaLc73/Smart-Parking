@@ -5,3 +5,7 @@
 dashboard/node_modules/
 
 cmd
+
+node_modules/
+dashboard/.env
+dashboard/dist/
