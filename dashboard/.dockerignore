@@ -1,0 +1,12 @@
+node_modules
+dist
+npm-debug.log*
+.npmrc
+.DS_Store
+*.local
+# Allow production env to be included for Vite build
+.env
+.env.development
+.env.local
+.env.*.local
+coverage

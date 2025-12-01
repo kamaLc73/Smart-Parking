@@ -1,0 +1,15 @@
+version: "3.9"
+services:
+  dashboard:
+    build:
+      context: ./dashboard
+      dockerfile: Dockerfile
+      args:
+        VITE_MQTT_BROKER: ${VITE_MQTT_BROKER:-}
+        VITE_MQTT_USERNAME: ${VITE_MQTT_USERNAME:-}
+        VITE_MQTT_PASSWORD: ${VITE_MQTT_PASSWORD:-}
+        VITE_MQTT_TOPIC: ${VITE_MQTT_TOPIC:-smartparking/status}
+    image: smart-parking-dashboard:latest
+    ports:
+      - "8080:80"
+    restart: unless-stopped
