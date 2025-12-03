@@ -10,5 +10,4 @@ node_modules/
 dashboard/.env
 dashboard/dist/
 
-*.mp4 
-*.pdf
+docs/
